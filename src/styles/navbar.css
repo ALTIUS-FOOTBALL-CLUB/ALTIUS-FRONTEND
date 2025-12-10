@@ -1,76 +1,133 @@
+/* NAVBAR MAIN */
 .site-header {
+  width: 100%;
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
-  padding: 14px 40px;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0); /* transparent initially */
+  backdrop-filter: blur(5px);
+  transition: background 0.35s ease, padding 0.3s ease, backdrop-filter 0.3s ease;
 }
 
 .nav-inner {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  transition: padding 0.3s ease;
 }
 
+/* Scroll Shrink + Darken */
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+}
+
+.nav-inner.scrolled-inner {
+  padding: 10px 40px !important;
+}
+
+/* LOGO */
 .nav-logo {
-  width: 140px;
-  height: auto;
+  height: 65px;
 }
 
+/* NAV LINKS */
 .main-nav {
   display: flex;
-  gap: 30px;
-  align-items: center;
+  gap: 40px;
 }
 
 .nav-link {
-  font-weight: 700;
-  font-size: 16px;
   color: white;
+  font-size: 18px;
+  font-weight: 600;
+  transition: 0.3s;
 }
 
 .nav-link:hover {
   color: #ff6a00;
 }
 
-/* MOBILE NAV */
+/* SOCIAL ICONS */
+.social-icons {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.social-icons a {
+  font-size: 28px;
+  color: white;
+  transition: 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #ff6a00;
+  transform: scale(1.2);
+}
+
+/* CALL ICON SPECIAL STYLE */
+.call-icon {
+  color: #ff6a00;       /* Premium orange highlight */
+  font-size: 30px;      /* Slightly bigger */
+}
+
+.call-icon:hover {
+  color: white;
+  transform: scale(1.25);
+}
+
+/* HAMBURGER */
 .hamburger {
   display: none;
-  background: transparent;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
   border: none;
   cursor: pointer;
 }
 
 .bar {
-  width: 22px;
-  height: 2px;
-  background: #fff;
-  margin: 5px 0;
+  width: 26px;
+  height: 3px;
+  background: white;
+  transition: 0.3s;
 }
 
-/* Mobile */
-@media (max-width: 768px) {
+/* MOBILE NAV */
+@media (max-width: 900px) {
   .main-nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 70%;
-    background: #000;
+    position: absolute;
+    top: 75px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
     flex-direction: column;
-    padding-top: 120px;
-    transform: translateX(100%);
-    transition: 0.3s ease;
+    padding: 20px 0;
+    display: none;
+    text-align: center;
   }
 
   .main-nav.open {
-    transform: translateX(0);
+    display: flex;
+  }
+
+  .social-icons {
+    display: none; /* Hide icons on mobile */
   }
 
   .hamburger {
-    display: block;
+    display: flex;
+  }
+
+  .hamburger.is-active .bar:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+  }
+  .hamburger.is-active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.is-active .bar:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
   }
 }
