@@ -9,6 +9,7 @@
   transition: background 0.35s ease, padding 0.3s ease, backdrop-filter 0.3s ease;
 }
 
+/* INNER NAV WRAPPER */
 .nav-inner {
   display: flex;
   justify-content: space-between;
@@ -17,7 +18,7 @@
   transition: padding 0.3s ease;
 }
 
-/* Scroll Shrink + Darken */
+/* Shrinks on scroll */
 .site-header.scrolled {
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(10px);
@@ -30,6 +31,11 @@
 /* LOGO */
 .nav-logo {
   height: 65px;
+  transition: 0.2s ease;
+}
+
+.site-header.scrolled .nav-logo {
+  height: 58px;
 }
 
 /* NAV LINKS */
@@ -42,11 +48,12 @@
   color: white;
   font-size: 18px;
   font-weight: 600;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .nav-link:hover {
   color: #ff6a00;
+  transform: translateY(-2px);
 }
 
 /* SOCIAL ICONS */
@@ -59,18 +66,19 @@
 .social-icons a {
   font-size: 28px;
   color: white;
-  transition: 0.3s ease;
+  transition: 0.25s ease;
 }
 
 .social-icons a:hover {
   color: #ff6a00;
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
 /* CALL ICON SPECIAL STYLE */
 .call-icon {
-  color: #ff6a00;       /* Premium orange highlight */
-  font-size: 30px;      /* Slightly bigger */
+  color: #ff6a00;     /* highlight color */
+  font-size: 32px;   
+  transition: 0.25s ease;
 }
 
 .call-icon:hover {
@@ -95,16 +103,53 @@
   transition: 0.3s;
 }
 
-/* MOBILE NAV */
+/* Hamburger animation */
+.hamburger.is-active .bar:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+.hamburger.is-active .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.is-active .bar:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* ========================================= */
+/* RESPONSIVE NAVIGATION FIXES */
+/* ========================================= */
+
+/* Tablets Landscape (1000px–1200px) */
+@media (max-width: 1200px) {
+  .main-nav {
+    gap: 30px;
+  }
+}
+
+/* Tablets (800px–1000px) */
+@media (max-width: 1000px) {
+  .main-nav {
+    gap: 22px;
+  }
+  .social-icons {
+    gap: 18px;
+  }
+  .nav-logo {
+    height: 58px;
+  }
+}
+
+/* MOBILE NAVIGATION */
 @media (max-width: 900px) {
+
   .main-nav {
     position: absolute;
     top: 75px;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.92);
     flex-direction: column;
-    padding: 20px 0;
+    padding: 22px 0;
+    gap: 25px;
     display: none;
     text-align: center;
   }
@@ -113,21 +158,31 @@
     display: flex;
   }
 
+  /* hide social icons on mobile */
   .social-icons {
-    display: none; /* Hide icons on mobile */
+    display: none;
   }
 
   .hamburger {
     display: flex;
   }
 
-  .hamburger.is-active .bar:nth-child(1) {
-    transform: rotate(45deg) translateY(8px);
+  .nav-logo {
+    height: 55px;
   }
-  .hamburger.is-active .bar:nth-child(2) {
-    opacity: 0;
+}
+
+/* SMALLER MOBILE (under 500px) */
+@media (max-width: 500px) {
+  .nav-inner {
+    padding: 14px 22px;
   }
-  .hamburger.is-active .bar:nth-child(3) {
-    transform: rotate(-45deg) translateY(-8px);
+
+  .nav-logo {
+    height: 48px;
+  }
+
+  .main-nav {
+    top: 65px;
   }
 }

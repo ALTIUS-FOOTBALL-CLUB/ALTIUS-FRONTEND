@@ -1,7 +1,6 @@
 import React from "react";
 import "../styles/sports.css";
-import Navbar from "../components/navbar";
-import Footer from "../components/footer";
+
 
 // Sport videos
 import footballVid from "../assets/sports/football.mp4";
@@ -11,7 +10,7 @@ import pickleVid from "../assets/sports/pickleball.mp4";
 const Sports = () => {
   return (
     <>
-      <Navbar />
+ 
 
       {/* FULL PAGE WRAPPER */}
       <div className="sports-page">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/navbar";
+
 import "../styles/trial.css";
 
 import bg1 from "../assets/trial-bg/bg-1.jpg";
@@ -23,7 +23,7 @@ const Trial = () => {
 
   return (
     <>
-      <Navbar />
+     
 
       {/* FULL SCREEN SLIDESHOW */}
       <div className="trial-slideshow">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/gallery.css";
-import Navbar from "../components/navbar";
+
 
 // IMPORT IMAGES
 import img1 from "../assets/achievements/BestPlayerGrandEva.jpg";
@@ -146,7 +146,7 @@ const Gallery = () => {
 
   return (
     <>
-      <Navbar />
+     
 
       <div className="achievements-page">
         <header className="achievements-hero">

@@ -1,0 +1,173 @@
+/* ===========================
+      PAGE BACKGROUND
+=========================== */
+.coaches-page {
+  padding: 120px 40px;
+  min-height: 100vh;
+
+  /* Background Football Court Image */
+  background-image: url("../assets/coaches-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+}
+
+/* Dark overlay to increase readability */
+.coaches-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 0;
+}
+
+/* Ensures all content sits ABOVE overlay */
+.coaches-page * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===========================
+      TITLE
+=========================== */
+.page-title {
+  font-size: 48px;
+  font-weight: 900;
+  text-align: center;
+  color: #ff6a00;
+  margin-bottom: 50px;
+  letter-spacing: 2px;
+}
+
+/* ===========================
+      FLIP GRID
+=========================== */
+.flip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 35px;
+  justify-items: center;
+
+  position: relative;
+  z-index: 2; /* FIX — Ensures cards appear correctly */
+}
+
+/* ===========================
+      FLIP CARD BASE
+=========================== */
+.flip-card {
+  background: transparent;
+  width: 320px;
+  height: 480px;
+  perspective: 1000px;
+
+  position: relative;
+  z-index: 3;  /* FIX — ensures card shows above overlay */
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.9s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner,
+.flip-card:active .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* ===========================
+      FRONT & BACK PANELS
+=========================== */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  border: 1px solid rgba(255, 106, 0, 0.3);
+  overflow: hidden;
+}
+
+/* ===========================
+      FRONT SIDE
+=========================== */
+.flip-card-front {
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px;
+}
+
+.flip-img {
+  width: 100%;
+  height: 340px; 
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 14px;
+}
+
+.flip-name {
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+}
+
+.flip-title {
+  font-size: 17px;
+  color: #ff6a00;
+  font-weight: 600;
+}
+
+/* ===========================
+      BACK SIDE
+=========================== */
+.flip-card-back {
+  background: #111;
+  color: white;
+  transform: rotateY(180deg);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.back-name {
+  font-size: 28px;
+  font-weight: 900;
+  color: #ff6a00;
+  margin-bottom: 14px;
+}
+
+.flip-card-back p {
+  font-size: 18px;
+  color: #e8e8e8;
+  margin: 6px 0;
+  line-height: 1.45;
+}
+
+/* ===========================
+      MOBILE RESPONSIVE
+=========================== */
+@media (max-width: 480px) {
+  .flip-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .flip-card {
+    width: 280px;
+    height: 440px;
+  }
+
+  .flip-img {
+    height: 300px;
+  }
+}
