@@ -1,88 +1,173 @@
-/* =================== MODAL =================== */
+/* ===========================
+      PAGE BACKGROUND
+=========================== */
+.coaches-page {
+  padding: 120px 40px;
+  min-height: 100vh;
 
-.modal-overlay {
-  position: fixed;
+  /* Background Football Court Image */
+  background-image: url("../assets/coaches-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+}
+
+/* Dark overlay to increase readability */
+.coaches-page::before {
+  content: "";
+  position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.80);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 28px;
-  z-index: 3000;
-  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 0;
 }
 
-.modal-panel {
-  width: 100%;
-  max-width: 1100px;
-  background: linear-gradient(180deg,#0d0d0d 0%, #111 100%);
-  border-radius: 14px;
-  display: flex;
-  gap: 30px;
-  padding: 22px;
-  border: 1px solid rgba(255,106,0,0.18);
-  animation: fadeIn 0.25s ease-out;
+/* Ensures all content sits ABOVE overlay */
+.coaches-page * {
+  position: relative;
+  z-index: 1;
 }
 
-.modal-left img {
+/* ===========================
+      TITLE
+=========================== */
+.page-title {
+  font-size: 48px;
+  font-weight: 900;
+  text-align: center;
+  color: #ff6a00;
+  margin-bottom: 50px;
+  letter-spacing: 2px;
+}
+
+/* ===========================
+      FLIP GRID
+=========================== */
+.flip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 35px;
+  justify-items: center;
+
+  position: relative;
+  z-index: 2; /* FIX — Ensures cards appear correctly */
+}
+
+/* ===========================
+      FLIP CARD BASE
+=========================== */
+.flip-card {
+  background: transparent;
+  width: 320px;
+  height: 480px;
+  perspective: 1000px;
+
+  position: relative;
+  z-index: 3;  /* FIX — ensures card shows above overlay */
+}
+
+.flip-card-inner {
+  position: relative;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.9s;
+  transform-style: preserve-3d;
 }
 
-/* Right side clean text */
-.modal-right {
-  flex: 1;
+.flip-card:hover .flip-card-inner,
+.flip-card:active .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* ===========================
+      FRONT & BACK PANELS
+=========================== */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  border: 1px solid rgba(255, 106, 0, 0.3);
+  overflow: hidden;
+}
+
+/* ===========================
+      FRONT SIDE
+=========================== */
+.flip-card-front {
+  background: #111;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  color: #fff;
-  padding-top: 10px;
+  align-items: center;
+  padding: 18px;
 }
 
-.modal-name {
-  font-size: 36px;
-  font-weight: 900;
-}
-
-.modal-title {
-  color: #ff6a00;
-  font-weight: 800;
-  font-size: 20px;
+.flip-img {
+  width: 100%;
+  height: 340px; 
+  border-radius: 12px;
+  object-fit: cover;
   margin-bottom: 14px;
 }
 
-.modal-bio {
-  color: #e3e3e3;
-  font-size: 15px;
-  line-height: 1.6;
+.flip-name {
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
 }
 
-.modal-details p {
-  margin: 4px 0;
-  font-size: 15px;
+.flip-title {
+  font-size: 17px;
+  color: #ff6a00;
+  font-weight: 600;
 }
 
-.modal-hint {
-  margin-top: 20px;
-  font-size: 13px;
-  opacity: 0.5;
-  text-align: right;
+/* ===========================
+      BACK SIDE
+=========================== */
+.flip-card-back {
+  background: #111;
+  color: white;
+  transform: rotateY(180deg);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
 }
 
-/* Responsive layout */
-@media (max-width: 900px) {
-  .modal-panel {
-    flex-direction: column;
+.back-name {
+  font-size: 28px;
+  font-weight: 900;
+  color: #ff6a00;
+  margin-bottom: 14px;
+}
+
+.flip-card-back p {
+  font-size: 18px;
+  color: #e8e8e8;
+  margin: 6px 0;
+  line-height: 1.45;
+}
+
+/* ===========================
+      MOBILE RESPONSIVE
+=========================== */
+@media (max-width: 480px) {
+  .flip-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .modal-left img {
-    height: 320px;
+  .flip-card {
+    width: 280px;
+    height: 440px;
   }
-}
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  .flip-img {
+    height: 300px;
+  }
 }

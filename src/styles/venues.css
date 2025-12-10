@@ -1,0 +1,106 @@
+/* ---------- Background Fix ---------- */
+.venues-section {
+  position: relative;
+  padding: 120px 20px 60px;
+
+  background: url("../assets/bg/altius-venues-bg.jpg") center top no-repeat;
+  background-size: cover;      /* FULL HEIGHT ALWAYS COVERED */
+  background-attachment: fixed; /* Prevents cutting while scrolling */
+}
+
+
+/* ---------- Heading ---------- */
+.venues-main-title {
+  text-align: center;
+  font-size: 48px;
+  font-weight: 900;
+  color: orange;
+  margin-bottom: 60px;
+}
+
+/* ---------- Layout ---------- */
+.venues-list {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+/* Each row */
+.venue-card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.venue-card-row.reverse {
+  flex-direction: row-reverse;
+}
+
+/* ---------- IMAGE CARD ---------- */
+.venue-image-card {
+  width: 50%;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(255, 140, 0, 0.5);
+  transform: scale(0.95);
+  transition: 0.3s ease;
+}
+
+.venue-image-card:hover {
+  transform: scale(1);
+}
+
+.venue-image {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
+/* ---------- TEXT CARD ---------- */
+.venue-text-card {
+  width: 45%;
+  background: rgba(236, 96, 8, 0.9);
+  padding: 30px;
+  border-radius: 20px;
+  transition: 0.4s ease;
+  cursor: pointer;
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 100, 0, 0.5);
+}
+
+.pop-in {
+  transform: translateY(-10px);
+}
+
+.pop-out {
+  transform: translateY(0px);
+}
+
+/* ---------- Location Box ---------- */
+.location-box {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 12px 18px;
+  background: white;
+  color: orange;
+  font-weight: 800;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.location-box:hover {
+  background: black;
+  color: orange;
+}
+
+/* ---------- Toggle Text ---------- */
+.toggle-text {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+}

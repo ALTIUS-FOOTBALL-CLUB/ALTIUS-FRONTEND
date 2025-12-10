@@ -1,6 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import "../styles/coaches.css";
-import Navbar from "../components/navbar";
+
 
 import shriram from "../assets/coaches/shriram.PNG";
 import bhoosan from "../assets/coaches/bhoosan.PNG";
@@ -40,8 +39,6 @@ const coaches = [
 ];
 
 const Coaches = () => {
-  const navigate = useNavigate();
-
   return (
     <>
       <Navbar />
@@ -49,19 +46,33 @@ const Coaches = () => {
       <section className="coaches-page">
         <h1 className="page-title">OUR COACHES</h1>
 
-        <div className="coach-grid">
+        <div className="flip-grid">
           {coaches.map((c) => (
-            <div
-              key={c.id}
-              className="coach-card"
-              onClick={() => navigate(`/coaches/${c.id}`)}
-            >
-              <img src={c.img} className="coach-img" />
-              <h3>{c.name}</h3>
-              <p className="coach-role">{c.title}</p>
+            <div key={c.id} className="flip-card">
+              <div className="flip-card-inner">
+
+                {/* FRONT */}
+                <div className="flip-card-front">
+                  <img src={c.img} alt={c.name} className="flip-img" />
+                  <h2 className="flip-name">{c.name}</h2>
+                  <p className="flip-title">{c.title}</p>
+                </div>
+
+                {/* BACK */}
+                <div className="flip-card-back">
+                  <h2 className="back-name">{c.name}</h2>
+
+                  <p><strong>Venues:</strong> {c.venues}</p>
+                  <p><strong>Age Groups:</strong> {c.age}</p>
+                  <p><strong>Experience:</strong> {c.exp}</p>
+                  <p><strong>License:</strong> {c.cert}</p>
+                </div>
+
+              </div>
             </div>
           ))}
         </div>
+
       </section>
     </>
   );
