@@ -1,44 +1,38 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/navbar.jsx";   // ✅ Common Navbar
-import Footer from "./components/footer.jsx";   // ✅ Common Footer
+import Navbar from "./components/navbar";
+import Footer from "./components/footer";
 
-import Landing from "./pages/landing.jsx";
-import Trial from "./pages/Trial.jsx";
-import Sports from "./pages/Sports.jsx";
-import Login from "./pages/login.jsx";
-import Gallery from "./pages/Gallery.jsx";
-import Callback from "./pages/callback.jsx";
-import Coaches from "./pages/coaches.jsx";
-import Venues from "./pages/venues.jsx";
-import About from "./pages/about.jsx";
+import Landing from "./pages/landing";
+import About from "./pages/about";
+import Coaches from "./pages/coaches";
+import Gallery from "./pages/gallery";
+import Venues from "./pages/venues";
+import Sports from "./pages/Sports";
+import Trial from "./pages/Trial";
 
-function App() {
+// New page that handles Google OAuth redirect
+import OAuthSuccess from "./pages/OAuthSuccess";
+
+export default function App() {
   return (
     <BrowserRouter>
-
-      {/* 🌟 GLOBAL NAVIGATION BAR (visible on all pages) */}
       <Navbar />
 
-      {/* 🌟 PAGE ROUTES */}
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/trial" element={<Trial />} />
-        <Route path="/programs" element={<Sports />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/callback" element={<Callback />} />
-        <Route path="/coaches" element={<Coaches />} />
-        <Route path="/venues" element={<Venues />} />
         <Route path="/about" element={<About />} />
+        <Route path="/coaches" element={<Coaches />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/venues" element={<Venues />} />
+        <Route path="/programs" element={<Sports />} />
+        <Route path="/trial" element={<Trial />} />
+
+        {/* Google OAuth redirect handler */}
+        <Route path="/oauth-success" element={<OAuthSuccess />} />
       </Routes>
 
-      {/* 🌟 GLOBAL FOOTER (visible on all pages except if page hides it manually) */}
       <Footer />
-
     </BrowserRouter>
   );
 }
-
-export default App;

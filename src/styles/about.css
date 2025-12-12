@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;700;800;900&display=swap');
+
 /* ===========================
       ABOUT PAGE BACKGROUND
 =========================== */
 .about-page {
-  padding-top: 100px; /* space for navbar */
+  padding-top: 350px; /* space for navbar */
   min-height: 100vh;
 
-  /* Background Image */
   background-image: url("../assets/about/about-bg.png");
-  background-size: cover;          /* fills the page */
-  background-position: center;     /* keeps it centered */
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 
   position: relative;
@@ -20,11 +20,10 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75); /* same opacity as your coaches page */
+  background: rgba(0, 0, 0, 0.75);
   z-index: 0;
 }
 
-/* Make ALL content appear above the overlay */
 .about-page * {
   position: relative;
   z-index: 1;
@@ -52,7 +51,7 @@ body { background: var(--bg); color: white; font-family: "Inter"; }
 ========================================================= */
 
 .hero {
-  padding: 36px 0 56px;
+  padding: 6px 0 5px;   /* ↓↓↓ REDUCED GAP HERE ↓↓↓ */
 }
 
 .hero-media {
@@ -63,7 +62,6 @@ body { background: var(--bg); color: white; font-family: "Inter"; }
   border-radius: 18px;
   overflow: hidden;
 
-  /* BORDER + SHADOW */
   border: 2px solid rgba(255,106,0,0.45);
   box-shadow: 0 30px 80px rgba(0,0,0,0.65);
 
@@ -115,7 +113,7 @@ body { background: var(--bg); color: white; font-family: "Inter"; }
 .who {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 36px;
+  gap: 28px;              /* ↓ reduced a little */
   align-items: start;
 }
 
@@ -191,7 +189,7 @@ body { background: var(--bg); color: white; font-family: "Inter"; }
 }
 
 /* =========================================================
-   PHILOSOPHY — ANIMATED + BORDERED IMAGES
+   PHILOSOPHY
 ========================================================= */
 
 .philosophy { margin-top: 50px; }
@@ -220,7 +218,6 @@ body { background: var(--bg); color: white; font-family: "Inter"; }
   background: rgba(255,106,0,0.08);
 }
 
-/* IMAGE BOX BORDER */
 .philo-img-box {
   width: 130px;
   height: 130px;
@@ -244,7 +241,6 @@ body { background: var(--bg); color: white; font-family: "Inter"; }
   border-radius: 12px;
 }
 
-/* TEXT */
 .philo-sub-text { flex: 1; }
 
 .philo-sub-title {
@@ -268,7 +264,7 @@ body { background: var(--bg); color: white; font-family: "Inter"; }
 }
 
 /* =========================================================
-   COACHES SECTION — PREMIUM STYLE
+   COACHES SECTION
 ========================================================= */
 
 .coaches-new {
@@ -297,8 +293,6 @@ body { background: var(--bg); color: white; font-family: "Inter"; }
   color: var(--muted);
 }
 
-/* COACHES IMAGE CARD — NOW ANIMATED */
-
 .coaches-card {
   display: flex;
   justify-content: center;
@@ -310,7 +304,6 @@ body { background: var(--bg); color: white; font-family: "Inter"; }
   border-radius: 18px;
   border: 2px solid rgba(255,106,0,0.45);
 
-  /* NEW: floating + tilt animation */
   animation: float 3.5s ease-in-out infinite;
   transition: 0.45s ease;
   box-shadow: 0 20px 45px rgba(0,0,0,0.55);
@@ -340,9 +333,8 @@ body { background: var(--bg); color: white; font-family: "Inter"; }
   .coaches-sub { margin: 0 auto 20px; }
 }
 
-/* END BANNER */
 .end-banner {
-  padding: 60px 0 80px;
+  padding: 20px 0 30px;
   text-align:center;
 }
 

@@ -2,7 +2,6 @@ import React from "react";
 import "../styles/landing.css";
 
 import Navbar from "../components/navbar";
-import Footer from "../components/footer";
 
 // Background video
 import bgVideo from "../assets/bg-video.mp4";
@@ -74,7 +73,7 @@ const Landing = () => {
         
       </section>
 
-      <Footer />
+     
     </>
   );
 };

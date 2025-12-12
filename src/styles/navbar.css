@@ -4,12 +4,12 @@
   position: fixed;
   top: 0;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0); /* transparent initially */
+  background: rgba(0, 0, 0, 0);
   backdrop-filter: blur(5px);
-  transition: background 0.35s ease, padding 0.3s ease, backdrop-filter 0.3s ease;
+  -webkit-backdrop-filter: blur(5px);
+  transition: background 0.35s ease, padding 0.3s ease;
 }
 
-/* INNER NAV WRAPPER */
 .nav-inner {
   display: flex;
   justify-content: space-between;
@@ -18,10 +18,10 @@
   transition: padding 0.3s ease;
 }
 
-/* Shrinks on scroll */
 .site-header.scrolled {
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .nav-inner.scrolled-inner {
@@ -56,37 +56,82 @@
   transform: translateY(-2px);
 }
 
+/* RIGHT SECTION */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 /* SOCIAL ICONS */
 .social-icons {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 18px;
 }
 
 .social-icons a {
-  font-size: 28px;
+  font-size: 26px;
   color: white;
   transition: 0.25s ease;
 }
 
 .social-icons a:hover {
   color: #ff6a00;
-  transform: scale(1.15);
 }
 
-/* CALL ICON SPECIAL STYLE */
+/* CALL ICON */
 .call-icon {
-  color: #ff6a00;     /* highlight color */
-  font-size: 32px;   
+  font-size: 28px;
+  color: #ff6a00;
   transition: 0.25s ease;
 }
 
 .call-icon:hover {
   color: white;
-  transform: scale(1.25);
 }
 
-/* HAMBURGER */
+/* LOGIN BUTTON */
+.login-btn {
+  padding: 6px 14px;
+  background: black;
+  color: white;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.login-btn:hover {
+  background: white;
+  color: black;
+}
+
+/* LOGOUT ICON BUTTON */
+.logout-icon-btn {
+  background: #ff6a00;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  transition: 0.25s ease;
+}
+
+.logout-icon-btn:hover {
+  background: #ff7f26;
+  transform: scale(1.15);
+}
+
+/* HAMBURGER MENU */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -103,44 +148,20 @@
   transition: 0.3s;
 }
 
-/* Hamburger animation */
 .hamburger.is-active .bar:nth-child(1) {
   transform: rotate(45deg) translateY(8px);
 }
+
 .hamburger.is-active .bar:nth-child(2) {
   opacity: 0;
 }
+
 .hamburger.is-active .bar:nth-child(3) {
   transform: rotate(-45deg) translateY(-8px);
 }
 
-/* ========================================= */
-/* RESPONSIVE NAVIGATION FIXES */
-/* ========================================= */
-
-/* Tablets Landscape (1000px–1200px) */
-@media (max-width: 1200px) {
-  .main-nav {
-    gap: 30px;
-  }
-}
-
-/* Tablets (800px–1000px) */
-@media (max-width: 1000px) {
-  .main-nav {
-    gap: 22px;
-  }
-  .social-icons {
-    gap: 18px;
-  }
-  .nav-logo {
-    height: 58px;
-  }
-}
-
-/* MOBILE NAVIGATION */
+/* MOBILE VIEW */
 @media (max-width: 900px) {
-
   .main-nav {
     position: absolute;
     top: 75px;
@@ -158,31 +179,11 @@
     display: flex;
   }
 
-  /* hide social icons on mobile */
   .social-icons {
     display: none;
   }
 
   .hamburger {
     display: flex;
-  }
-
-  .nav-logo {
-    height: 55px;
-  }
-}
-
-/* SMALLER MOBILE (under 500px) */
-@media (max-width: 500px) {
-  .nav-inner {
-    padding: 14px 22px;
-  }
-
-  .nav-logo {
-    height: 48px;
-  }
-
-  .main-nav {
-    top: 65px;
   }
 }

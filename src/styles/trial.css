@@ -1,4 +1,6 @@
-/* FULL SCREEN BG SLIDESHOW */
+/* ================================
+   FULL SCREEN SLIDESHOW
+================================ */
 .trial-slideshow {
   position: fixed;
   top: 0;
@@ -13,7 +15,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: cover;      /* Fill screen fully */
+  object-fit: cover;
   opacity: 0;
   transition: opacity 1.5s ease;
   filter: blur(2px);
@@ -23,90 +25,141 @@
   opacity: 1;
 }
 
-/* DARK OVERLAY FOR READABILITY */
+/* DARK OVERLAY */
 .trial-dark-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0,0,0,0.6);
   z-index: -2;
 }
 
-/* HEADER TEXT */
+/* HEADER */
 .trial-header {
   text-align: center;
-  padding-top: 150px;
+  padding-top: 140px;
   color: white;
 }
 
 .trial-header h1 {
-  font-size: 52px;
+  font-size: 50px;
   font-weight: 900;
-  text-shadow: 0 3px 10px rgba(0,0,0,0.9);
 }
 
 .trial-header p {
   font-size: 20px;
   margin-top: 10px;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.7);
 }
 
-/* FORM WRAPPER */
+/* ================================
+   SUCCESS POPUP (CENTER)
+================================ */
+.trial-success-center-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #0aa80a;
+  padding: 25px 40px;
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  border-radius: 14px;
+  text-align: center;
+  z-index: 999999;
+  animation: popupFade 0.3s ease-out forwards;
+}
+
+@keyframes popupFade {
+  from { opacity: 0; transform: translate(-50%, -45%); }
+  to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* LOGIN REQUIRED POPUP */
+.trial-login-warning {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: red;
+  padding: 14px 30px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  z-index: 99999;
+  animation: popupFade 0.3s ease-out;
+}
+
+/* ================================
+   FORM AREA
+================================ */
 .trial-form-wrapper {
   display: flex;
   justify-content: center;
   margin-top: 40px;
-  padding-bottom: 100px;
+  padding-bottom: 120px;
 }
 
-/* FORM BOX */
+.fade-in {
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .trial-form {
   width: 60%;
-  background: white;
+  background: #000;
   padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  border-radius: 18px;
+  box-shadow: 0 8px 20px white;
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
 .trial-form label {
-  font-size: 18px;
+  color: white;
   font-weight: 700;
-  color: black;
+  font-size: 18px;
 }
 
 .trial-form input,
 .trial-form select,
 .trial-form textarea {
   padding: 14px;
-  border: 2px solid #ccc;
   border-radius: 10px;
+  border: 2px solid #222;
+  background: black;
+  color: white;
   font-size: 16px;
-  color: black;
-  background: white;
+}
+
+.trial-form input:focus,
+.trial-form select:focus,
+.trial-form textarea:focus {
+  border-color: #ff6a00;
 }
 
 textarea {
   height: 100px;
 }
 
-/* CONSENT BOX */
+/* CONSENT SECTION */
 .consent-box {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .consent-box label {
-  display: flex;
-  gap: 10px;
+  color: white;
   font-size: 16px;
-  font-weight: 600;
-  color: black;
 }
 
 /* SUBMIT BUTTON */
@@ -114,15 +167,24 @@ textarea {
   background: #ff6a00;
   color: white;
   padding: 18px;
-  border-radius: 10px;
-  border: none;
   font-size: 22px;
-  font-weight: bold;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.25s;
 }
 
 .submit-btn:hover {
   background: #e65800;
+  transform: scale(1.03);
 }
 
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .trial-form { width: 85%; }
+}
+
+@media (max-width: 600px) {
+  .trial-header h1 { font-size: 36px; }
+  .trial-header p { font-size: 16px; }
+}

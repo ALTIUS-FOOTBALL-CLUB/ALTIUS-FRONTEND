@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import "../styles/trial.css";
 
 import bg1 from "../assets/trial-bg/bg-1.jpg";
@@ -12,20 +11,111 @@ const images = [bg1, bg2, bg3, bg4, bg5];
 
 const Trial = () => {
   const [current, setCurrent] = useState(0);
+  const [formVisible, setFormVisible] = useState(true);
+  const [successVisible, setSuccessVisible] = useState(false);
+  const [loginWarning, setLoginWarning] = useState(false);
 
+  const [form, setForm] = useState({
+    location: "",
+    student_name: "",
+    student_dob: "",
+    student_address: "",
+    email: "",
+    contact_number: "",
+    medical_condition: "",
+    consent: false,
+  });
+
+  // Slideshow
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
     }, 5000);
-
     return () => clearInterval(timer);
   }, []);
 
+  // Handle input
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+    setForm({
+      ...form,
+      [name]: type === "radio" ? value === "true" : value,
+    });
+  };
+
+  // Submit Form
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // LOGIN VERIFICATION
+    const loggedUser = JSON.parse(localStorage.getItem("altius_user"));
+
+    if (!loggedUser) {
+      setLoginWarning(true);
+      setTimeout(() => setLoginWarning(false), 2000);
+      return;
+    }
+
+    // Format DOB
+    const dateObj = new Date(form.student_dob);
+    const formattedDob = `${String(dateObj.getDate()).padStart(2, "0")}/${String(
+      dateObj.getMonth() + 1
+    ).padStart(2, "0")}/${dateObj.getFullYear()}`;
+
+    const payload = { ...form, student_dob: formattedDob };
+
+    try {
+      const res = await fetch("http://localhost:8008/trial/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        // Hide form → show success popup
+        setFormVisible(false);
+        setSuccessVisible(true);
+
+        // Reset fields
+        setForm({
+          location: "",
+          student_name: "",
+          student_dob: "",
+          student_address: "",
+          email: "",
+          contact_number: "",
+          medical_condition: "",
+          consent: false,
+        });
+
+        // Show form again after 2 sec
+        setTimeout(() => {
+          setSuccessVisible(false);
+          setFormVisible(true);
+        }, 2000);
+      }
+    } catch {
+      alert("Server error. Try again.");
+    }
+  };
+
   return (
     <>
-     
+      {/* CENTER SUCCESS POPUP */}
+      {successVisible && (
+        <div className="trial-success-center-popup">
+          🎉 Form submitted successfully!
+        </div>
+      )}
 
-      {/* FULL SCREEN SLIDESHOW */}
+      {/* LOGIN REQUIRED POPUP */}
+      {loginWarning && (
+        <div className="trial-login-warning">
+          ⚠️ Please login to submit the form!
+        </div>
+      )}
+
+      {/* BACKGROUND SLIDESHOW */}
       <div className="trial-slideshow">
         {images.map((img, index) => (
           <img
@@ -46,48 +136,109 @@ const Trial = () => {
       </div>
 
       {/* FORM */}
-      <div className="trial-form-wrapper">
-        <form className="trial-form">
+      {formVisible && (
+        <div className="trial-form-wrapper fade-in">
+          <form className="trial-form" onSubmit={handleSubmit}>
 
-          <label>Preferred Location</label>
-          <select required>
-            <option value="">Select Location</option>
-            <option>Madipakkam</option>
-            <option>Aminjikarai</option>
-            <option>Kolathur</option>
-            <option>Adyar</option>
-            <option>Villivakkam</option>
-            <option>Anna Nagar</option>
-            <option>Injambakkam</option>
-          </select>
+            <label>Preferred Location</label>
+            <select
+              name="location"
+              value={form.location}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Location</option>
+              <option>Madipakkam</option>
+              <option>Aminjikarai</option>
+              <option>Kolathur</option>
+              <option>Adyar</option>
+              <option>Villivakkam</option>
+              <option>Anna Nagar</option>
+              <option>Injambakkam</option>
+            </select>
 
-          <label>Student Name</label>
-          <input type="text" placeholder="Enter student's name" required />
+            <label>Student Name</label>
+            <input
+              type="text"
+              name="student_name"
+              value={form.student_name}
+              onChange={handleChange}
+              required
+            />
 
-          <label>Date of Birth</label>
-          <input type="date" required />
+            <label>Date of Birth</label>
+            <input
+              type="date"
+              name="student_dob"
+              value={form.student_dob}
+              onChange={handleChange}
+              required
+            />
 
-          <label>Residential Address</label>
-          <textarea placeholder="Enter full residential address"></textarea>
+            <label>Residential Address</label>
+            <textarea
+              name="student_address"
+              value={form.student_address}
+              onChange={handleChange}
+              required
+            />
 
-          <label>Email ID</label>
-          <input type="email" placeholder="Email id" required />
+            <label>Email ID</label>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
 
-          <label>Contact Number</label>
-          <input type="number" placeholder="Enter contact number" required />
+            <label>Contact Number</label>
+            <input
+              type="number"
+              name="contact_number"
+              value={form.contact_number}
+              onChange={handleChange}
+              required
+            />
 
-          <label>Any Medical Conditions?</label>
-          <textarea placeholder="Specify if applicable"></textarea>
+            <label>Any Medical Conditions?</label>
+            <textarea
+              name="medical_condition"
+              value={form.medical_condition}
+              onChange={handleChange}
+            />
 
-          <label>Consent: The Academy storing my data for training purposes only.</label>
-          <div className="consent-box">
-            <label><input type="radio" name="consent" required /> I consent</label>
-            <label><input type="radio" name="consent" /> I do not consent</label>
-          </div>
+            <label>Consent</label>
+            <div className="consent-box">
+              <label>
+                <input
+                  type="radio"
+                  name="consentRadio"
+                  value="true"
+                  checked={form.consent === true}
+                  onChange={handleChange}
+                  required
+                />
+                I Consent
+              </label>
 
-          <button type="submit" className="submit-btn">Submit</button>
-        </form>
-      </div>
+              <label>
+                <input
+                  type="radio"
+                  name="consentRadio"
+                  value="false"
+                  checked={form.consent === false}
+                  onChange={handleChange}
+                />
+                I Do Not Consent
+              </label>
+            </div>
+
+            <button type="submit" className="submit-btn">Submit</button>
+
+          </form>
+        </div>
+      )}
     </>
   );
 };
