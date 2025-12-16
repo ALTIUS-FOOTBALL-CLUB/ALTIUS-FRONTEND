@@ -40,7 +40,7 @@ const Landing = () => {
           <p className="pretitle">WELCOME TO ALTIUS SPORTS ACADEMY</p>
 
           <h1 className="hero-title">
-            Discover Advance <span className="accent">Triumph</span>
+            Discover.<span className="accent">Advance.</span>Triumph
           </h1>
 
           <p className="hero-sub">
@@ -54,7 +54,7 @@ const Landing = () => {
               EXPLORE PROGRAMS
             </a>
 
-            <a href="/contact" className="btn btn-outline">
+            <a href="/trial" className="btn btn-outline">
               BOOK A TRIAL SESSION
             </a>
           </div>

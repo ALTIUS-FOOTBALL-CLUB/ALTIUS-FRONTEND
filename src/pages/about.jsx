@@ -65,8 +65,8 @@ export default function About() {
             <div className="hero-pre">ALTIUS SPORTS ACADEMY</div>
 
             <h1 className="hero-title">
-              <span>Discover</span>
-              <span className="accent">Advance</span>
+              <span>Discover.</span>
+              <span className="accent">Advance.</span>
               <span>Triumph</span>
             </h1>
 

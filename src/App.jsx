@@ -18,6 +18,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      
 
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -30,7 +31,9 @@ export default function App() {
 
         {/* Google OAuth redirect handler */}
         <Route path="/oauth-success" element={<OAuthSuccess />} />
+        
       </Routes>
+      
 
       <Footer />
     </BrowserRouter>

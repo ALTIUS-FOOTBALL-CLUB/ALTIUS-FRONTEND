@@ -23,10 +23,10 @@ const Trial = () => {
     email: "",
     contact_number: "",
     medical_condition: "",
-    consent: false,
+    consent: null,
   });
 
-  // Slideshow
+  // SLIDESHOW
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
@@ -34,7 +34,7 @@ const Trial = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Handle input
+  // INPUT HANDLER (FIXED)
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     setForm({
@@ -43,20 +43,17 @@ const Trial = () => {
     });
   };
 
-  // Submit Form
+  // SUBMIT
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // LOGIN VERIFICATION
     const loggedUser = JSON.parse(localStorage.getItem("altius_user"));
-
     if (!loggedUser) {
       setLoginWarning(true);
       setTimeout(() => setLoginWarning(false), 2000);
       return;
     }
 
-    // Format DOB
     const dateObj = new Date(form.student_dob);
     const formattedDob = `${String(dateObj.getDate()).padStart(2, "0")}/${String(
       dateObj.getMonth() + 1
@@ -72,11 +69,9 @@ const Trial = () => {
       });
 
       if (res.ok) {
-        // Hide form → show success popup
         setFormVisible(false);
         setSuccessVisible(true);
 
-        // Reset fields
         setForm({
           location: "",
           student_name: "",
@@ -85,10 +80,9 @@ const Trial = () => {
           email: "",
           contact_number: "",
           medical_condition: "",
-          consent: false,
+          consent: null,
         });
 
-        // Show form again after 2 sec
         setTimeout(() => {
           setSuccessVisible(false);
           setFormVisible(true);
@@ -101,32 +95,32 @@ const Trial = () => {
 
   return (
     <>
-      {/* CENTER SUCCESS POPUP */}
+      {/* SUCCESS POPUP */}
       {successVisible && (
         <div className="trial-success-center-popup">
-          🎉 Form submitted successfully!
+          ✅ Registered Successfully
         </div>
       )}
 
-      {/* LOGIN REQUIRED POPUP */}
+      {/* LOGIN WARNING */}
       {loginWarning && (
         <div className="trial-login-warning">
           ⚠️ Please login to submit the form!
         </div>
       )}
 
-      {/* BACKGROUND SLIDESHOW */}
+      {/* BACKGROUND */}
       <div className="trial-slideshow">
         {images.map((img, index) => (
           <img
             key={index}
             src={img}
             className={`slide ${current === index ? "active" : ""}`}
+            alt=""
           />
         ))}
       </div>
 
-      {/* DARK OVERLAY */}
       <div className="trial-dark-overlay"></div>
 
       {/* HEADER */}
@@ -141,12 +135,7 @@ const Trial = () => {
           <form className="trial-form" onSubmit={handleSubmit}>
 
             <label>Preferred Location</label>
-            <select
-              name="location"
-              value={form.location}
-              onChange={handleChange}
-              required
-            >
+            <select name="location" value={form.location} onChange={handleChange} required>
               <option value="">Select Location</option>
               <option>Madipakkam</option>
               <option>Aminjikarai</option>
@@ -158,62 +147,29 @@ const Trial = () => {
             </select>
 
             <label>Student Name</label>
-            <input
-              type="text"
-              name="student_name"
-              value={form.student_name}
-              onChange={handleChange}
-              required
-            />
+            <input name="student_name" value={form.student_name} onChange={handleChange} required />
 
             <label>Date of Birth</label>
-            <input
-              type="date"
-              name="student_dob"
-              value={form.student_dob}
-              onChange={handleChange}
-              required
-            />
+            <input type="date" name="student_dob" value={form.student_dob} onChange={handleChange} required />
 
             <label>Residential Address</label>
-            <textarea
-              name="student_address"
-              value={form.student_address}
-              onChange={handleChange}
-              required
-            />
+            <textarea name="student_address" value={form.student_address} onChange={handleChange} required />
 
             <label>Email ID</label>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
+            <input type="email" name="email" value={form.email} onChange={handleChange} required />
 
             <label>Contact Number</label>
-            <input
-              type="number"
-              name="contact_number"
-              value={form.contact_number}
-              onChange={handleChange}
-              required
-            />
+            <input type="number" name="contact_number" value={form.contact_number} onChange={handleChange} required />
 
             <label>Any Medical Conditions?</label>
-            <textarea
-              name="medical_condition"
-              value={form.medical_condition}
-              onChange={handleChange}
-            />
+            <textarea name="medical_condition" value={form.medical_condition} onChange={handleChange} />
 
-            <label>Consent</label>
+            <label>Consent: For Sharing details only for academic purpose.</label>
             <div className="consent-box">
               <label>
                 <input
                   type="radio"
-                  name="consentRadio"
+                  name="consent"
                   value="true"
                   checked={form.consent === true}
                   onChange={handleChange}
@@ -225,7 +181,7 @@ const Trial = () => {
               <label>
                 <input
                   type="radio"
-                  name="consentRadio"
+                  name="consent"
                   value="false"
                   checked={form.consent === false}
                   onChange={handleChange}
@@ -235,7 +191,6 @@ const Trial = () => {
             </div>
 
             <button type="submit" className="submit-btn">Submit</button>
-
           </form>
         </div>
       )}
