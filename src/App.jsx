@@ -5,7 +5,8 @@ import Footer from "./components/footer";
 
 import Landing from "./pages/landing";
 import About from "./pages/about";
-import Coaches from "./pages/coaches";
+import Coaches from "./pages/Coaches";
+
 import Gallery from "./pages/gallery";
 import Venues from "./pages/venues";
 import Sports from "./pages/Sports";
