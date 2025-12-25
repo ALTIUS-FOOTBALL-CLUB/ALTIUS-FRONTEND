@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/trial.css";
 
 import bg1 from "../assets/trial-bg/bg-1.jpg";
-import bg2 from "../assets/trial-bg/bg-2.jpg";
+import bg2 from "../assets/trial-bg/bg-2.JPG";
 import bg3 from "../assets/trial-bg/bg-3.jpg";
 import bg4 from "../assets/trial-bg/bg-4.jpg";
 import bg5 from "../assets/trial-bg/bg-5.jpg";
