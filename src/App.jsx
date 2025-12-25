@@ -7,7 +7,8 @@ import Landing from "./pages/landing";
 import About from "./pages/about";
 import Coaches from "./pages/Coaches";
 
-import Gallery from "./pages/gallery";
+import Gallery from "./pages/Gallery";
+
 import Venues from "./pages/venues";
 import Sports from "./pages/Sports";
 import Trial from "./pages/Trial";
