@@ -14,6 +14,7 @@ const Trial = () => {
   const [formVisible, setFormVisible] = useState(true);
   const [successVisible, setSuccessVisible] = useState(false);
   const [loginWarning, setLoginWarning] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // 🔒 IMPORTANT
 
   const [form, setForm] = useState({
     location: "",
@@ -26,7 +27,7 @@ const Trial = () => {
     consent: null,
   });
 
-  // SLIDESHOW
+  /* SLIDESHOW */
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
@@ -34,7 +35,7 @@ const Trial = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // INPUT HANDLER (FIXED)
+  /* INPUT HANDLER */
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     setForm({
@@ -43,9 +44,12 @@ const Trial = () => {
     });
   };
 
-  // SUBMIT
+  /* SUBMIT HANDLER (FIXED) */
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 🔒 Block multiple clicks
+    if (isSubmitting) return;
 
     const loggedUser = JSON.parse(localStorage.getItem("altius_user"));
     if (!loggedUser) {
@@ -53,6 +57,8 @@ const Trial = () => {
       setTimeout(() => setLoginWarning(false), 2000);
       return;
     }
+
+    setIsSubmitting(true); // 🔒 lock submit
 
     const dateObj = new Date(form.student_dob);
     const formattedDob = `${String(dateObj.getDate()).padStart(2, "0")}/${String(
@@ -69,9 +75,11 @@ const Trial = () => {
       });
 
       if (res.ok) {
+        // ✅ Show success instantly
         setFormVisible(false);
         setSuccessVisible(true);
 
+        // Reset form
         setForm({
           location: "",
           student_name: "",
@@ -87,9 +95,13 @@ const Trial = () => {
           setSuccessVisible(false);
           setFormVisible(true);
         }, 2000);
+      } else {
+        alert("Submission failed. Try again.");
       }
     } catch {
       alert("Server error. Try again.");
+    } finally {
+      setIsSubmitting(false); // 🔓 unlock submit
     }
   };
 
@@ -133,36 +145,72 @@ const Trial = () => {
       {formVisible && (
         <div className="trial-form-wrapper fade-in">
           <form className="trial-form" onSubmit={handleSubmit}>
-
             <label>Preferred Location</label>
-            <select name="location" value={form.location} onChange={handleChange} required>
+            <select
+              name="location"
+              value={form.location}
+              onChange={handleChange}
+              required
+            >
               <option value="">Select Location</option>
               <option>Madipakkam</option>
               <option>Aminjikarai</option>
               <option>Kolathur</option>
-              <option>Adyar</option>
+              
               <option>Villivakkam</option>
               <option>Anna Nagar</option>
               <option>Injambakkam</option>
             </select>
 
             <label>Student Name</label>
-            <input name="student_name" value={form.student_name} onChange={handleChange} required />
+            <input
+              name="student_name"
+              value={form.student_name}
+              onChange={handleChange}
+              required
+            />
 
             <label>Date of Birth</label>
-            <input type="date" name="student_dob" value={form.student_dob} onChange={handleChange} required />
+            <input
+              type="date"
+              name="student_dob"
+              value={form.student_dob}
+              onChange={handleChange}
+              required
+            />
 
             <label>Residential Address</label>
-            <textarea name="student_address" value={form.student_address} onChange={handleChange} required />
+            <textarea
+              name="student_address"
+              value={form.student_address}
+              onChange={handleChange}
+              required
+            />
 
             <label>Email ID</label>
-            <input type="email" name="email" value={form.email} onChange={handleChange} required />
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
 
             <label>Contact Number</label>
-            <input type="number" name="contact_number" value={form.contact_number} onChange={handleChange} required />
+            <input
+              type="number"
+              name="contact_number"
+              value={form.contact_number}
+              onChange={handleChange}
+              required
+            />
 
             <label>Any Medical Conditions?</label>
-            <textarea name="medical_condition" value={form.medical_condition} onChange={handleChange} />
+            <textarea
+              name="medical_condition"
+              value={form.medical_condition}
+              onChange={handleChange}
+            />
 
             <label>Consent: For Sharing details only for academic purpose.</label>
             <div className="consent-box">
@@ -190,7 +238,13 @@ const Trial = () => {
               </label>
             </div>
 
-            <button type="submit" className="submit-btn">Submit</button>
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </button>
           </form>
         </div>
       )}
