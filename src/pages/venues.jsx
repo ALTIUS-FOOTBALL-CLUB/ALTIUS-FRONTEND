@@ -5,7 +5,7 @@ import villivakkam from "../assets/venues/villivakkam.jpg";
 import aminjikarai from "../assets/venues/aminjikarai.jpg";
 import annanagar from "../assets/venues/annanagar.jpg";
 import kolathur from "../assets/venues/kolathur.jpg";
-import injambakkam from "../assets/venues/injambakkam.jpg";
+import injambakkam from "../assets/venues/Injambakkam.jpg";
 import madipakkam from "../assets/venues/madipakkam.jpg";
 
 export default function Venues() {
