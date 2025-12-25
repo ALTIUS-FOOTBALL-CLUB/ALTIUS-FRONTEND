@@ -1,5 +1,6 @@
 import "../styles/coaches.css";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar";
+
 
 
 import shriram from "../assets/coaches/shriram.PNG";
