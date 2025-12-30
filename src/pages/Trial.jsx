@@ -9,7 +9,7 @@ import bg5 from "../assets/trial-bg/bg-5.jpg";
 
 const images = [bg1, bg2, bg3, bg4, bg5];
 
-// ✅ BACKEND URL (LOCAL + PROD SAFE)
+// ✅ API BASE URL (THIS IS THE FIX)
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const Trial = () => {
@@ -50,7 +50,6 @@ const Trial = () => {
   /* SUBMIT HANDLER */
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (isSubmitting) return;
 
     const loggedUser = JSON.parse(localStorage.getItem("altius_user"));
@@ -70,6 +69,7 @@ const Trial = () => {
     const payload = { ...form, student_dob: formattedDob };
 
     try {
+      // ✅ FIXED API CALL
       const res = await fetch(`${API_BASE_URL}/trial/`, {
         method: "POST",
         headers: {
@@ -144,12 +144,7 @@ const Trial = () => {
         <div className="trial-form-wrapper fade-in">
           <form className="trial-form" onSubmit={handleSubmit}>
             <label>Preferred Location</label>
-            <select
-              name="location"
-              value={form.location}
-              onChange={handleChange}
-              required
-            >
+            <select name="location" value={form.location} onChange={handleChange} required>
               <option value="">Select Location</option>
               <option>Madipakkam</option>
               <option>Aminjikarai</option>
@@ -160,88 +155,36 @@ const Trial = () => {
             </select>
 
             <label>Student Name</label>
-            <input
-              name="student_name"
-              value={form.student_name}
-              onChange={handleChange}
-              required
-            />
+            <input name="student_name" value={form.student_name} onChange={handleChange} required />
 
             <label>Date of Birth</label>
-            <input
-              type="date"
-              name="student_dob"
-              value={form.student_dob}
-              onChange={handleChange}
-              required
-            />
+            <input type="date" name="student_dob" value={form.student_dob} onChange={handleChange} required />
 
             <label>Residential Address</label>
-            <textarea
-              name="student_address"
-              value={form.student_address}
-              onChange={handleChange}
-              required
-            />
+            <textarea name="student_address" value={form.student_address} onChange={handleChange} required />
 
             <label>Email ID</label>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
+            <input type="email" name="email" value={form.email} onChange={handleChange} required />
 
             <label>Contact Number</label>
-            <input
-              type="number"
-              name="contact_number"
-              value={form.contact_number}
-              onChange={handleChange}
-              required
-            />
+            <input type="number" name="contact_number" value={form.contact_number} onChange={handleChange} required />
 
             <label>Any Medical Conditions?</label>
-            <textarea
-              name="medical_condition"
-              value={form.medical_condition}
-              onChange={handleChange}
-            />
+            <textarea name="medical_condition" value={form.medical_condition} onChange={handleChange} />
 
-            <label>
-              Consent: For sharing details only for academic purpose.
-            </label>
+            <label>Consent</label>
             <div className="consent-box">
               <label>
-                <input
-                  type="radio"
-                  name="consent"
-                  value="true"
-                  checked={form.consent === true}
-                  onChange={handleChange}
-                  required
-                />
+                <input type="radio" name="consent" value="true" checked={form.consent === true} onChange={handleChange} required />
                 I Consent
               </label>
-
               <label>
-                <input
-                  type="radio"
-                  name="consent"
-                  value="false"
-                  checked={form.consent === false}
-                  onChange={handleChange}
-                />
+                <input type="radio" name="consent" value="false" checked={form.consent === false} onChange={handleChange} />
                 I Do Not Consent
               </label>
             </div>
 
-            <button
-              type="submit"
-              className="submit-btn"
-              disabled={isSubmitting}
-            >
+            <button type="submit" className="submit-btn" disabled={isSubmitting}>
               {isSubmitting ? "Submitting..." : "Submit"}
             </button>
           </form>
