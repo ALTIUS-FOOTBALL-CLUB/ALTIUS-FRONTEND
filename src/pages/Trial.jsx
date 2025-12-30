@@ -9,12 +9,15 @@ import bg5 from "../assets/trial-bg/bg-5.jpg";
 
 const images = [bg1, bg2, bg3, bg4, bg5];
 
+// ✅ BACKEND URL (LOCAL + PROD SAFE)
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const Trial = () => {
   const [current, setCurrent] = useState(0);
   const [formVisible, setFormVisible] = useState(true);
   const [successVisible, setSuccessVisible] = useState(false);
   const [loginWarning, setLoginWarning] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // 🔒 IMPORTANT
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [form, setForm] = useState({
     location: "",
@@ -44,11 +47,10 @@ const Trial = () => {
     });
   };
 
-  /* SUBMIT HANDLER (FIXED) */
+  /* SUBMIT HANDLER */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 🔒 Block multiple clicks
     if (isSubmitting) return;
 
     const loggedUser = JSON.parse(localStorage.getItem("altius_user"));
@@ -58,7 +60,7 @@ const Trial = () => {
       return;
     }
 
-    setIsSubmitting(true); // 🔒 lock submit
+    setIsSubmitting(true);
 
     const dateObj = new Date(form.student_dob);
     const formattedDob = `${String(dateObj.getDate()).padStart(2, "0")}/${String(
@@ -68,18 +70,18 @@ const Trial = () => {
     const payload = { ...form, student_dob: formattedDob };
 
     try {
-      const res = await fetch("http://localhost:8008/trial/", {
+      const res = await fetch(`${API_BASE_URL}/trial/`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(payload),
       });
 
       if (res.ok) {
-        // ✅ Show success instantly
         setFormVisible(false);
         setSuccessVisible(true);
 
-        // Reset form
         setForm({
           location: "",
           student_name: "",
@@ -98,30 +100,28 @@ const Trial = () => {
       } else {
         alert("Submission failed. Try again.");
       }
-    } catch {
+    } catch (err) {
+      console.error(err);
       alert("Server error. Try again.");
     } finally {
-      setIsSubmitting(false); // 🔓 unlock submit
+      setIsSubmitting(false);
     }
   };
 
   return (
     <>
-      {/* SUCCESS POPUP */}
       {successVisible && (
         <div className="trial-success-center-popup">
           ✅ Registered Successfully
         </div>
       )}
 
-      {/* LOGIN WARNING */}
       {loginWarning && (
         <div className="trial-login-warning">
           ⚠️ Please login to submit the form!
         </div>
       )}
 
-      {/* BACKGROUND */}
       <div className="trial-slideshow">
         {images.map((img, index) => (
           <img
@@ -135,13 +135,11 @@ const Trial = () => {
 
       <div className="trial-dark-overlay"></div>
 
-      {/* HEADER */}
       <div className="trial-header">
         <h1>Register for a Free Trial Class</h1>
         <p>Fill in your details and our team will contact you shortly.</p>
       </div>
 
-      {/* FORM */}
       {formVisible && (
         <div className="trial-form-wrapper fade-in">
           <form className="trial-form" onSubmit={handleSubmit}>
@@ -156,7 +154,6 @@ const Trial = () => {
               <option>Madipakkam</option>
               <option>Aminjikarai</option>
               <option>Kolathur</option>
-              
               <option>Villivakkam</option>
               <option>Anna Nagar</option>
               <option>Injambakkam</option>
@@ -212,7 +209,9 @@ const Trial = () => {
               onChange={handleChange}
             />
 
-            <label>Consent: For Sharing details only for academic purpose.</label>
+            <label>
+              Consent: For sharing details only for academic purpose.
+            </label>
             <div className="consent-box">
               <label>
                 <input
