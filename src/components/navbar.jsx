@@ -42,8 +42,9 @@ const Navbar = () => {
 
   // Google OAuth Login
   const handleLogin = () => {
-    window.location.href = "http://localhost:8008/auth/login";
-  };
+  window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/login`;
+};
+
 
   // Logout
   const handleLogout = () => {
