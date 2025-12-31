@@ -1,106 +1,177 @@
-/* ---------- Background Fix ---------- */
+/* =================================================
+   VENUES PAGE – CLEAN PROFESSIONAL DESIGN
+   ================================================= */
+
+/* ---------- Section ---------- */
 .venues-section {
-  position: relative;
-  padding: 120px 20px 60px;
-
+  padding: 120px 20px 80px;
   background: url("../assets/bg/altius-venues-bg.jpg") center top no-repeat;
-  background-size: cover;      /* FULL HEIGHT ALWAYS COVERED */
-  background-attachment: fixed; /* Prevents cutting while scrolling */
+  background-size: cover;
 }
-
 
 /* ---------- Heading ---------- */
 .venues-main-title {
   text-align: center;
-  font-size: 48px;
+  font-size: 46px;
   font-weight: 900;
   color: rgba(236, 96, 8, 0.9);
-  margin-bottom: 60px;
+  margin-bottom: 70px;
 }
 
-/* ---------- Layout ---------- */
+/* ---------- List ---------- */
 .venues-list {
   width: 90%;
+  max-width: 1200px;
   margin: auto;
   display: flex;
   flex-direction: column;
-  gap: 90px;
+  gap: 80px;
 }
 
-/* Each row */
+/* =================================================
+   CARD ROW
+   ================================================= */
+
 .venue-card-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 40px;
 }
 
 .venue-card-row.reverse {
   flex-direction: row-reverse;
 }
 
-/* ---------- IMAGE CARD ---------- */
+/* =================================================
+   IMAGE CARD
+   ================================================= */
+
 .venue-image-card {
   width: 50%;
-  position: relative;
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 0 30px rgba(255, 140, 0, 0.5);
-  transform: scale(0.95);
-  transition: 0.3s ease;
-}
-
-.venue-image-card:hover {
-  transform: scale(1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .venue-image {
   width: 100%;
-  height: 360px;
+  height: 340px;
   object-fit: cover;
 }
 
-/* ---------- TEXT CARD ---------- */
+/* =================================================
+   TEXT CARD
+   ================================================= */
+
 .venue-text-card {
   width: 45%;
-  background: rgba(236, 96, 8, 0.9);
-  padding: 30px;
-  border-radius: 20px;
-  transition: 0.4s ease;
+  background: rgba(236, 96, 8, 0.95);
+  color: #fff;
+  padding: 26px 28px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  color: white;
-  box-shadow: 0 0 20px rgba(255, 100, 0, 0.5);
 }
 
-.pop-in {
-  transform: translateY(-10px);
+/* ---------- Text ---------- */
+.venue-title {
+  font-size: 24px;
+  font-weight: 800;
 }
 
-.pop-out {
-  transform: translateY(0px);
+.venue-sub {
+  font-size: 14px;
+  margin-top: 6px;
+  opacity: 0.95;
 }
 
-/* ---------- Location Box ---------- */
+.venue-details {
+  margin-top: 14px;
+}
+
+.venue-details p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+/* ---------- Button ---------- */
 .location-box {
   display: inline-block;
-  margin-top: 12px;
-  padding: 12px 18px;
-  background: white;
-  color: orange;
-  font-weight: 800;
-  border-radius: 12px;
+  margin-top: 14px;
+  padding: 10px 16px;
+  background: #fff;
+  color: #ff7a00;
+  font-weight: 700;
+  border-radius: 10px;
   text-decoration: none;
-  transition: 0.3s ease;
 }
 
 .location-box:hover {
-  background: black;
-  color: orange;
+  background: #000;
+  color: #ff7a00;
 }
 
-/* ---------- Toggle Text ---------- */
+/* ---------- Toggle ---------- */
 .toggle-text {
-  margin-top: 14px;
-  font-size: 14px;
-  color: #000;
-  font-weight: bold;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+/* =================================================
+   MOBILE VIEW (CLEAN & PRESENTABLE)
+   ================================================= */
+
+@media (max-width: 768px) {
+
+  .venues-section {
+    padding: 80px 16px 50px;
+  }
+
+  .venues-main-title {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+
+  .venues-list {
+    width: 100%;
+    gap: 60px;
+  }
+
+  .venue-card-row,
+  .venue-card-row.reverse {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .venue-image-card,
+  .venue-text-card {
+    width: 100%;
+  }
+
+  .venue-image {
+    height: 220px;
+  }
+
+  .venue-text-card {
+    padding: 18px 20px;
+  }
+
+  .venue-title {
+    font-size: 20px;
+  }
+
+  .venue-sub,
+  .venue-details p {
+    font-size: 13px;
+  }
+
+  .location-box {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
 }

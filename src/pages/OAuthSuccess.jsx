@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authcontext";
 
 export default function OAuthSuccess() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   useEffect(() => {
     const user = {
@@ -13,10 +15,8 @@ export default function OAuthSuccess() {
       token: params.get("token"),
     };
 
-    // Save user to localStorage
-    localStorage.setItem("altius_user", JSON.stringify(user));
-
-    navigate("/"); // Go home
+    login(user);     // ✅ instant login
+    navigate("/");  // go home
   }, []);
 
   return <h2>Logging you in...</h2>;

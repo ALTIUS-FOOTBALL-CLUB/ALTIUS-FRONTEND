@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 import logo from "../assets/logo.jpg";
+import { AuthContext } from "../context/authcontext";
 
 import {
   FaInstagram,
@@ -16,103 +17,132 @@ import {
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [user, setUser] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
+  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // Detect scroll
+  const boldText = {
+    fontWeight: "700",
+    letterSpacing: "0px"
+  };
+
+  // Scroll effect
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Load user from localStorage
+  // Resize detection
   useEffect(() => {
-    const savedUser = localStorage.getItem("altius_user");
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch (err) {
-        console.warn("altius_user parse error:", err);
-        localStorage.removeItem("altius_user");
-      }
-    }
+    const onResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Google OAuth Login
   const handleLogin = () => {
-  window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/login`;
-};
+    window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/login`;
+  };
 
-
-  // Logout
   const handleLogout = () => {
-    localStorage.removeItem("altius_user");
-    setUser(null);
+    logout();
     navigate("/");
+    setOpen(false);
   };
 
   return (
     <header className={`site-header ${scrolled ? "scrolled" : ""}`}>
-      <div className={`nav-inner ${scrolled ? "scrolled-inner" : ""}`}>
+      <div className="nav-inner">
 
         {/* LOGO */}
         <Link to="/" onClick={() => setOpen(false)}>
           <img src={logo} className="nav-logo" alt="Altius Sports Academy" />
         </Link>
 
-        {/* NAV LINKS */}
-        <nav className={`main-nav ${open ? "open" : ""}`}>
-          <Link to="/" className="nav-link" onClick={() => setOpen(false)}>Home</Link>
-          <Link to="/about" className="nav-link" onClick={() => setOpen(false)}>About</Link>
-          <Link to="/programs" className="nav-link" onClick={() => setOpen(false)}>Sports Programs</Link>
-          <Link to="/coaches" className="nav-link" onClick={() => setOpen(false)}>Coaches</Link>
-          <Link to="/venues" className="nav-link" onClick={() => setOpen(false)}>Academy Venues</Link>
-          <Link to="/gallery" className="nav-link" onClick={() => setOpen(false)}>Gallery</Link>
-        </nav>
+        {/* DESKTOP NAV LINKS */}
+        {!isMobile && (
+          <nav className="main-nav">
+            <Link to="/" style={boldText}>Home</Link>
+            <Link to="/about" style={boldText}>About</Link>
+            <Link to="/programs" style={boldText}>Sports Programs</Link>
+            <Link to="/coaches" style={boldText}>Coaches</Link>
+            <Link to="/venues" style={boldText}>Academy Venues</Link>
+            <Link to="/gallery" style={boldText}>Gallery</Link>
+          </nav>
+        )}
 
         {/* RIGHT SECTION */}
         <div className="right-section">
 
-          {/* Social Icons */}
-          <div className="social-icons">
-            <a href="https://www.instagram.com/altiussportsacademy" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
-            <a href="https://www.facebook.com/share/15op1w1Jm6/" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
-            <a href="https://youtube.com/@altiussportsacademy" target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
-            <a href="https://www.linkedin.com/company/altius-sports-academy/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
+          {/* DESKTOP ICONS ONLY */}
+          {!isMobile && (
+            <div className="social-icons">
+              <a href="https://www.instagram.com/altiussportsacademy" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+              <a href="https://www.facebook.com/share/15op1w1Jm6/" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
+              <a href="https://youtube.com/@altiussportsacademy" target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
+              <a href="https://www.linkedin.com/company/altius-sports-academy/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
+              <a href="tel:+918939175590"><FaPhoneAlt /></a>
+            </div>
+          )}
 
-            <a href="tel:+918939175590" className="call-icon" aria-label="Call">
-              <FaPhoneAlt />
-            </a>
-          </div>
-
-          {/* LOGIN OR LOGOUT */}
+          {/* LOGIN / LOGOUT (ALWAYS OUTSIDE) */}
           {!user ? (
-            <button className="login-btn" onClick={handleLogin}>
-              <FaDoorOpen className="door-icon" />
-              Login
+            <button className="login-btn" style={boldText} onClick={handleLogin}>
+              <FaDoorOpen /> Login
             </button>
           ) : (
-            <button className="logout-icon-btn" onClick={handleLogout} title="Logout">
+            <button className="logout-icon-btn" onClick={handleLogout}>
               <FaSignOutAlt />
             </button>
           )}
 
+          {/* HAMBURGER (MOBILE ONLY) */}
+          {isMobile && (
+            <button
+              className={`hamburger ${open ? "is-active" : ""}`}
+              onClick={() => setOpen(!open)}
+              aria-label="Toggle menu"
+            >
+              <span className="bar"></span>
+              <span className="bar"></span>
+              <span className="bar"></span>
+            </button>
+          )}
+
         </div>
-
-        {/* HAMBURGER MENU */}
-        <button
-          className={`hamburger ${open ? "is-active" : ""}`}
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
-        </button>
-
       </div>
+
+      {/* MOBILE HAMBURGER MENU */}
+      {isMobile && open && (
+        <div
+          className="mobile-menu"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "22px",
+            padding: "24px 0"
+          }}
+        >
+          {/* NAV LINKS */}
+          <Link to="/" style={boldText} onClick={() => setOpen(false)}>Home</Link>
+          <Link to="/about" style={boldText} onClick={() => setOpen(false)}>About</Link>
+          <Link to="/programs" style={boldText} onClick={() => setOpen(false)}>Sports Programs</Link>
+          <Link to="/coaches" style={boldText} onClick={() => setOpen(false)}>Coaches</Link>
+          <Link to="/venues" style={boldText} onClick={() => setOpen(false)}>Academy Venues</Link>
+          <Link to="/gallery" style={boldText} onClick={() => setOpen(false)}>Gallery</Link>
+
+          {/* SOCIAL ICONS (MOBILE → INSIDE HAMBURGER ONLY) */}
+          <div style={{ display: "flex", gap: "18px", marginTop: "10px" }}>
+            <a href="https://www.instagram.com/altiussportsacademy"><FaInstagram /></a>
+            <a href="https://www.facebook.com/share/15op1w1Jm6/"><FaFacebook /></a>
+            <a href="https://youtube.com/@altiussportsacademy"><FaYoutube /></a>
+            <a href="https://www.linkedin.com/company/altius-sports-academy/"><FaLinkedin /></a>
+            <a href="tel:+918939175590"><FaPhoneAlt /></a>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
