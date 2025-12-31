@@ -1,41 +1,28 @@
-/* NAVBAR MAIN */
+/* =========================
+   TRANSPARENT NAVBAR (ALL PAGES)
+========================= */
+
 .site-header {
-  width: 100%;
   position: fixed;
   top: 0;
+  width: 100%;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  transition: background 0.35s ease, padding 0.3s ease;
+
+  background: transparent;     /* ALWAYS TRANSPARENT */
+  backdrop-filter: none;       /* NO BLUR */
+  box-shadow: none;            /* NO SHADOW */
 }
 
 .nav-inner {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 18px 40px;
-  transition: padding 0.3s ease;
-}
-
-.site-header.scrolled {
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.nav-inner.scrolled-inner {
-  padding: 10px 40px !important;
 }
 
 /* LOGO */
 .nav-logo {
   height: 65px;
-  transition: 0.2s ease;
-}
-
-.site-header.scrolled .nav-logo {
-  height: 58px;
 }
 
 /* NAV LINKS */
@@ -44,16 +31,14 @@
   gap: 40px;
 }
 
-.nav-link {
+.main-nav a {
   color: white;
-  font-size: 16px;
   font-weight: 600;
-  transition: 0.3s ease;
+  transition: color 0.25s ease;
 }
 
-.nav-link:hover {
+.main-nav a:hover {
   color: #ff6a00;
-  transform: translateY(-2px);
 }
 
 /* RIGHT SECTION */
@@ -66,111 +51,69 @@
 /* SOCIAL ICONS */
 .social-icons {
   display: flex;
-  align-items: center;
   gap: 18px;
 }
 
 .social-icons a {
-  font-size: 26px;
+  font-size: 24px;
   color: white;
-  transition: 0.25s ease;
 }
 
 .social-icons a:hover {
   color: #ff6a00;
 }
 
-/* CALL ICON */
-.call-icon {
-  font-size: 28px;
-  color: #ff6a00;
-  transition: 0.25s ease;
-}
-
-.call-icon:hover {
-  color: white;
-}
-
-/* LOGIN BUTTON */
+/* LOGIN */
 .login-btn {
-  padding: 6px 14px;
-  background: black;
+  background: transparent;
+  border: 1px solid white;
   color: white;
+  padding: 6px 14px;
   border-radius: 6px;
-  font-size: 14px;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  border: none;
   cursor: pointer;
-  transition: 0.3s ease;
 }
 
 .login-btn:hover {
-  background: white;
-  color: black;
+  background: #ff6a00;
+  border-color: #ff6a00;
 }
 
-/* LOGOUT ICON BUTTON */
+/* LOGOUT */
 .logout-icon-btn {
   background: #ff6a00;
   border: none;
   padding: 8px 10px;
   border-radius: 8px;
   color: white;
-  cursor: pointer;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  transition: 0.25s ease;
 }
 
-.logout-icon-btn:hover {
-  background: #ff7f26;
-  transform: scale(1.15);
-}
-
-/* HAMBURGER MENU */
+/* HAMBURGER */
 .hamburger {
   display: none;
   flex-direction: column;
   gap: 5px;
   background: none;
   border: none;
-  cursor: pointer;
 }
 
 .bar {
   width: 26px;
   height: 3px;
   background: white;
-  transition: 0.3s;
 }
 
-.hamburger.is-active .bar:nth-child(1) {
-  transform: rotate(45deg) translateY(8px);
-}
-
-.hamburger.is-active .bar:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.is-active .bar:nth-child(3) {
-  transform: rotate(-45deg) translateY(-8px);
-}
-
-/* MOBILE VIEW */
+/* MOBILE */
 @media (max-width: 900px) {
   .main-nav {
     position: absolute;
-    top: 75px;
+    top: 72px;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.92);
+    background: rgba(0, 0, 0, 0.9); /* mobile menu background */
     flex-direction: column;
-    padding: 22px 0;
     gap: 25px;
+    padding: 22px 0;
     display: none;
     text-align: center;
   }

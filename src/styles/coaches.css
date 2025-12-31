@@ -4,42 +4,33 @@
 .coaches-page {
   padding: 120px 40px;
   min-height: 100vh;
-
-  /* Background Football Court Image */
-  background-image: url("../assets/coaches-bg.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
+  background: url("../assets/coaches-bg.png") center / cover no-repeat;
   position: relative;
 }
 
-/* Dark overlay to increase readability */
 .coaches-page::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: 0;
+  background: rgba(0,0,0,0.65);
 }
 
-/* Ensures all content sits ABOVE overlay */
-.coaches-page * {
+.coaches-page > * {
   position: relative;
   z-index: 1;
 }
 
-/* ===========================
-      TITLE
-=========================== */
 .page-title {
+  text-align: center;
   font-size: 48px;
   font-weight: 900;
-  text-align: center;
   color: #ff6a00;
   margin-bottom: 50px;
-  letter-spacing: 2px;
+  text-shadow: 0 0 6px rgba(255,106,0,.6);
 }
+
+/* rest of flip-card styles unchanged (already correct) */
+
 
 /* ===========================
       FLIP GRID
@@ -49,9 +40,6 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 35px;
   justify-items: center;
-
-  position: relative;
-  z-index: 2; /* FIX — Ensures cards appear correctly */
 }
 
 /* ===========================
@@ -62,9 +50,6 @@
   width: 320px;
   height: 480px;
   perspective: 1000px;
-
-  position: relative;
-  z-index: 3;  /* FIX — ensures card shows above overlay */
 }
 
 .flip-card-inner {
@@ -108,7 +93,7 @@
 
 .flip-img {
   width: 100%;
-  height: 340px; 
+  height: 340px;
   border-radius: 12px;
   object-fit: cover;
   margin-bottom: 14px;
@@ -153,52 +138,38 @@
   margin: 6px 0;
   line-height: 1.45;
 }
-/* =====================================
-   CLEAN & STABLE MOBILE FIX (FINAL)
-   ===================================== */
 
+/* ===========================
+      MOBILE FIX
+=========================== */
 @media (max-width: 480px) {
 
-  /* Page spacing (safe for header) */
   .coaches-page {
     padding: 160px 16px 80px;
     min-height: auto;
   }
 
-  /* Title */
   .page-title {
     font-size: 32px;
     margin-bottom: 40px;
     letter-spacing: 1px;
   }
 
-  /* ONE coach per row */
   .flip-grid {
     grid-template-columns: 1fr;
     gap: 28px;
   }
 
-  /* Card sizing (STABLE) */
   .flip-card {
     width: 100%;
     max-width: 320px;
     height: 460px;
-    perspective: 1000px;
   }
 
-  /* Preserve flip integrity */
-  .flip-card-inner {
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-  }
-
-  /* Image size */
   .flip-img {
     height: 300px;
   }
 
-  /* Improve readability */
   .flip-name {
     font-size: 22px;
   }

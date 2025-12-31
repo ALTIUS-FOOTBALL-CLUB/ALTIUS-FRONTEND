@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 }
+/* Default (desktop) */
+body {
+  padding-top: 80px;
+}
+
+/* Mobile fix */
+@media (max-width: 768px) {
+  body {
+    padding-top: 110px;
+  }
+}
