@@ -18,45 +18,62 @@ const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const closeMenu = () => setOpen(false);
+
   const handleLogin = () => {
+    closeMenu();
     window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/login`;
   };
 
   const handleLogout = () => {
     logout();
     navigate("/");
-    setOpen(false);
+    closeMenu();
   };
 
   return (
     <header className="site-header">
       <div className="nav-inner">
 
-        {/* LOGO */}
-        <Link to="/">
-          <img src={logo} className="nav-logo" alt="Altius Sports Academy" />
+        {/* LOGO (close menu on click) */}
+        <Link to="/" onClick={closeMenu}>
+          <img
+            src={logo}
+            className="nav-logo"
+            alt="Altius Sports Academy"
+          />
         </Link>
 
         {/* NAV LINKS */}
         <nav className={`main-nav ${open ? "open" : ""}`}>
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/programs">Sports Programs</Link>
-          <Link to="/coaches">Coaches</Link>
-          <Link to="/venues">Academy Venues</Link>
-          <Link to="/gallery">Gallery</Link>
+          <Link to="/" onClick={closeMenu}>Home</Link>
+          <Link to="/about" onClick={closeMenu}>About</Link>
+          <Link to="/programs" onClick={closeMenu}>Sports Programs</Link>
+          <Link to="/coaches" onClick={closeMenu}>Coaches</Link>
+          <Link to="/venues" onClick={closeMenu}>Academy Venues</Link>
+          <Link to="/gallery" onClick={closeMenu}>Gallery</Link>
         </nav>
 
         {/* RIGHT SECTION */}
         <div className="right-section">
 
+          {/* SOCIAL ICONS (desktop only via CSS) */}
           <div className="social-icons">
-            <a href="https://www.instagram.com/altiussportsacademy"><FaInstagram /></a>
-            <a href="https://www.facebook.com/share/15op1w1Jm6/"><FaFacebook /></a>
-            <a href="https://youtube.com/@altiussportsacademy"><FaYoutube /></a>
-            <a href="https://www.linkedin.com/company/altius-sports-academy/"><FaLinkedin /></a>
+            <a href="https://www.instagram.com/altiussportsacademy" target="_blank" rel="noopener noreferrer">
+              <FaInstagram />
+            </a>
+            <a href="https://www.facebook.com/share/15op1w1Jm6/" target="_blank" rel="noopener noreferrer">
+              <FaFacebook />
+            </a>
+            <a href="https://youtube.com/@altiussportsacademy" target="_blank" rel="noopener noreferrer">
+              <FaYoutube />
+            </a>
+            <a href="https://www.linkedin.com/company/altius-sports-academy/" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin />
+            </a>
           </div>
 
+          {/* LOGIN / LOGOUT */}
           {!user ? (
             <button className="login-btn" onClick={handleLogin}>
               <FaDoorOpen /> Login
@@ -67,9 +84,11 @@ const Navbar = () => {
             </button>
           )}
 
+          {/* HAMBURGER */}
           <button
             className={`hamburger ${open ? "is-active" : ""}`}
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpen(prev => !prev)}
+            aria-label="Toggle navigation"
           >
             <span className="bar"></span>
             <span className="bar"></span>
