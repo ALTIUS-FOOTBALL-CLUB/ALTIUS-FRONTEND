@@ -175,3 +175,51 @@
     text-align: center;
   }
 }
+/* =====================================
+   MOBILE HEADER OFFSET FIX
+   (PREVENT HEADING FROM BEING CUT)
+   ===================================== */
+
+@media (max-width: 768px) {
+
+  .venues-section {
+    padding-top: 160px; /* pushes content below fixed header */
+  }
+
+  .venues-main-title {
+    margin-top: 0;
+    padding-top: 10px;
+  }
+}
+/* =====================================
+   MOBILE HEADER OFFSET FIX
+   (PREVENT HEADING FROM BEING CUT)
+   ===================================== */
+
+@media (max-width: 768px) {
+
+  .venues-section {
+    padding-top: 160px; /* pushes content below fixed header */
+  }
+
+  .venues-main-title {
+    margin-top: 0;
+    padding-top: 10px;
+  }
+}
+/* =====================================
+   MOBILE HEADER OFFSET FIX
+   (PREVENT HEADING FROM BEING CUT)
+   ===================================== */
+
+@media (max-width: 768px) {
+
+  .venues-section {
+    padding-top: 160px; /* pushes content below fixed header */
+  }
+
+  .venues-main-title {
+    margin-top: 0;
+    padding-top: 10px;
+  }
+}
