@@ -1,18 +1,15 @@
 import React from "react";
 import "../styles/sports.css";
 
-
 // Sport videos
 import footballVid from "../assets/sports/football.mp4";
+import badmintonVid from "../assets/sports/badminton.mp4";
 import chessVid from "../assets/sports/chess.mp4";
 import pickleVid from "../assets/sports/pickleball.mp4";
 
 const Sports = () => {
   return (
     <>
- 
-
-      {/* FULL PAGE WRAPPER */}
       <div className="sports-page">
 
         {/* HERO SECTION */}
@@ -28,7 +25,7 @@ const Sports = () => {
         {/* MAIN CONTENT */}
         <section className="sports-container">
 
-          {/* FOOTBALL */}
+          {/* FOOTBALL – LEFT */}
           <div className="sport-card reveal">
             <video
               className="sport-video"
@@ -51,8 +48,30 @@ const Sports = () => {
             </div>
           </div>
 
-          {/* CHESS */}
+          {/* BADMINTON – RIGHT */}
           <div className="sport-card reveal reverse">
+            <video
+              className="sport-video"
+              src={badmintonVid}
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+
+            <div className="sport-content">
+              <h2>Badminton Training</h2>
+              <p>
+                Our badminton training program focuses on speed, footwork,
+                precision, and endurance. Athletes develop strong technical skills,
+                tactical awareness, and match temperament through structured drills,
+                competitive play, and professional coaching guidance.
+              </p>
+            </div>
+          </div>
+
+          {/* CHESS – LEFT */}
+          <div className="sport-card reveal">
             <video
               className="sport-video"
               src={chessVid}
@@ -74,8 +93,8 @@ const Sports = () => {
             </div>
           </div>
 
-          {/* PICKLEBALL */}
-          <div className="sport-card reveal">
+          {/* PICKLEBALL – RIGHT */}
+          <div className="sport-card reveal reverse">
             <video
               className="sport-video blur-video"
               src={pickleVid}
@@ -98,7 +117,6 @@ const Sports = () => {
           </div>
 
         </section>
-        
       </div>
     </>
   );
