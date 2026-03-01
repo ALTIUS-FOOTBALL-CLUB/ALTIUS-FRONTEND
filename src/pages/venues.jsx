@@ -7,6 +7,7 @@ import annanagar from "../assets/venues/annanagar.jpg";
 import kolathur from "../assets/venues/kolathur.jpg";
 import injambakkam from "../assets/venues/Injambakkam.jpg";
 import madipakkam from "../assets/venues/madipakkam.jpg";
+import badminton from "../assets/venues/badminton.jpg";
 
 export default function Venues() {
   const [openCards, setOpenCards] = useState({});
@@ -36,8 +37,7 @@ export default function Venues() {
       subtitle: "Covered Terrace Turf",
       location: "Aminjikarai",
       schedule: "Mon / Wed / Fri — 6–7 AM & 6–8 PM",
-      address:
-        "Ampa Skywalk Terrace, Nelson Manickam Road, Chennai 600030",
+      address: "Ampa Skywalk Terrace, Nelson Manickam Road, Chennai 600030",
       map: "https://maps.app.goo.gl/eSgRZkwZeXqLm6ps6",
     },
     {
@@ -67,8 +67,7 @@ export default function Venues() {
       subtitle: "Coastal Training Ground",
       location: "Injambakkam",
       schedule: "Mon / Wed / Fri — 6–7 PM",
-      address:
-        "Pon Vidhyashram Gardens, SH 49, Injambakkam, Chennai 600115",
+      address: "Pon Vidhyashram Gardens, SH 49, Injambakkam, Chennai 600115",
       map: "https://maps.app.goo.gl/D3q2CybiEJry2Kb38",
     },
     {
@@ -78,8 +77,7 @@ export default function Venues() {
       subtitle: "Kids Weekend Turf",
       location: "Madipakkam",
       schedule: "Tue / Thu / Sat / Sun — 4–6 PM",
-      address:
-        "261 Padmavathi St, Srinivasa Nagar, Madipakkam, Chennai 600091",
+      address: "261 Padmavathi St, Srinivasa Nagar, Madipakkam, Chennai 600091",
       map: "https://maps.app.goo.gl/KTHKmauJhL58ZZ899",
     },
   ];
@@ -87,6 +85,7 @@ export default function Venues() {
   return (
     <section className="venues-section">
 
+      {/* FOOTBALL HEADING */}
       <h2 className="venues-main-title">Training Centers</h2>
 
       <div className="venues-list">
@@ -95,13 +94,10 @@ export default function Venues() {
             key={v.id}
             className={`venue-card-row ${index % 2 === 0 ? "normal" : "reverse"}`}
           >
-            {/* LEFT IMAGE */}
-            <div className="venue-image-card floating-card">
-              <div className="shine-effect"></div>
+            <div className="venue-image-card">
               <img src={v.img} alt={v.name} className="venue-image" />
             </div>
 
-            {/* RIGHT TEXT */}
             <div
               className={`venue-text-card ${openCards[v.id] ? "pop-in" : "pop-out"}`}
               onClick={() => toggleCard(v.id)}
@@ -114,7 +110,6 @@ export default function Venues() {
                   <p><strong>Schedule:</strong> {v.schedule}</p>
                   <p><strong>Address:</strong> {v.address}</p>
 
-                  {/* LOCATION BOX */}
                   <a
                     className="location-box"
                     href={v.map}
@@ -133,6 +128,62 @@ export default function Venues() {
           </div>
         ))}
       </div>
+
+      {/* BADMINTON HEADING */}
+      <h2 className="venues-main-title" style={{ marginTop: "120px" }}>
+        Badminton Training Centre
+      </h2>
+
+      <div className="venues-list">
+
+        <div className="venue-card-row normal">
+
+          <div className="venue-image-card">
+            <img
+              src={badminton}
+              alt="Fitbuddy Sports Badminton Class"
+              className="venue-image"
+            />
+          </div>
+
+          <div
+            className={`venue-text-card ${openCards[7] ? "pop-in" : "pop-out"}`}
+            onClick={() => toggleCard(7)}
+          >
+            <h3 className="venue-title">Fitbuddy Sports</h3>
+            <p className="venue-sub">Badminton Class • Periamet</p>
+
+            {openCards[7] && (
+              <div className="venue-details">
+                <p><strong>Schedule:</strong> Monday to Friday</p>
+                <p><strong>Batch 1:</strong> 4:00 PM – 5:00 PM</p>
+                <p><strong>Batch 2:</strong> 5:00 PM – 6:00 PM</p>
+                <p>
+                  <strong>Address:</strong> 115, Vepery High Road,
+                  Periamet, Vepery, Poongavanapuram,
+                  Chennai, Tamil Nadu 600003
+                </p>
+
+                <a
+                  className="location-box"
+                  href="https://maps.google.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  📍 Locate on Map
+                </a>
+              </div>
+            )}
+
+            <p className="toggle-text">
+              {openCards[7] ? "Click to hide" : "Click to view details"}
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
     </section>
   );
 }
