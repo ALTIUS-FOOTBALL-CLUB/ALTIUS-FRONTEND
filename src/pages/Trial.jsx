@@ -9,7 +9,7 @@ import bg5 from "../assets/trial-bg/bg-5.jpg";
 
 const images = [bg1, bg2, bg3, bg4, bg5];
 
-// ✅ API BASE URL (THIS IS THE FIX)
+// API BASE URL
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const Trial = () => {
@@ -21,6 +21,7 @@ const Trial = () => {
 
   const [form, setForm] = useState({
     location: "",
+    sport: "",
     student_name: "",
     student_dob: "",
     student_address: "",
@@ -35,12 +36,14 @@ const Trial = () => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
     }, 5000);
+
     return () => clearInterval(timer);
   }, []);
 
   /* INPUT HANDLER */
   const handleChange = (e) => {
     const { name, value, type } = e.target;
+
     setForm({
       ...form,
       [name]: type === "radio" ? value === "true" : value,
@@ -50,9 +53,11 @@ const Trial = () => {
   /* SUBMIT HANDLER */
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (isSubmitting) return;
 
     const loggedUser = JSON.parse(localStorage.getItem("altius_user"));
+
     if (!loggedUser) {
       setLoginWarning(true);
       setTimeout(() => setLoginWarning(false), 2000);
@@ -62,14 +67,17 @@ const Trial = () => {
     setIsSubmitting(true);
 
     const dateObj = new Date(form.student_dob);
+
     const formattedDob = `${String(dateObj.getDate()).padStart(2, "0")}/${String(
       dateObj.getMonth() + 1
     ).padStart(2, "0")}/${dateObj.getFullYear()}`;
 
-    const payload = { ...form, student_dob: formattedDob };
+    const payload = {
+      ...form,
+      student_dob: formattedDob,
+    };
 
     try {
-      // ✅ FIXED API CALL
       const res = await fetch(`${API_BASE_URL}/trial/`, {
         method: "POST",
         headers: {
@@ -84,6 +92,7 @@ const Trial = () => {
 
         setForm({
           location: "",
+          sport: "",
           student_name: "",
           student_dob: "",
           student_address: "",
@@ -143,8 +152,14 @@ const Trial = () => {
       {formVisible && (
         <div className="trial-form-wrapper fade-in">
           <form className="trial-form" onSubmit={handleSubmit}>
+
             <label>Preferred Location</label>
-            <select name="location" value={form.location} onChange={handleChange} required>
+            <select
+              name="location"
+              value={form.location}
+              onChange={handleChange}
+              required
+            >
               <option value="">Select Location</option>
               <option>Madipakkam</option>
               <option>Aminjikarai</option>
@@ -152,41 +167,105 @@ const Trial = () => {
               <option>Villivakkam</option>
               <option>Anna Nagar</option>
               <option>Injambakkam</option>
+              <option>Periyamet</option>
+            </select>
+
+            <label>Choose Sport</label>
+            <select
+              name="sport"
+              value={form.sport}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Sport</option>
+              <option>Badminton</option>
+              <option>Football</option>
             </select>
 
             <label>Student Name</label>
-            <input name="student_name" value={form.student_name} onChange={handleChange} required />
+            <input
+              name="student_name"
+              value={form.student_name}
+              onChange={handleChange}
+              required
+            />
 
             <label>Date of Birth</label>
-            <input type="date" name="student_dob" value={form.student_dob} onChange={handleChange} required />
+            <input
+              type="date"
+              name="student_dob"
+              value={form.student_dob}
+              onChange={handleChange}
+              required
+            />
 
             <label>Residential Address</label>
-            <textarea name="student_address" value={form.student_address} onChange={handleChange} required />
+            <textarea
+              name="student_address"
+              value={form.student_address}
+              onChange={handleChange}
+              required
+            />
 
             <label>Email ID</label>
-            <input type="email" name="email" value={form.email} onChange={handleChange} required />
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
 
             <label>Contact Number</label>
-            <input type="number" name="contact_number" value={form.contact_number} onChange={handleChange} required />
+            <input
+              type="number"
+              name="contact_number"
+              value={form.contact_number}
+              onChange={handleChange}
+              required
+            />
 
             <label>Any Medical Conditions?</label>
-            <textarea name="medical_condition" value={form.medical_condition} onChange={handleChange} />
+            <textarea
+              name="medical_condition"
+              value={form.medical_condition}
+              onChange={handleChange}
+            />
 
             <label>Consent</label>
             <div className="consent-box">
               <label>
-                <input type="radio" name="consent" value="true" checked={form.consent === true} onChange={handleChange} required />
+                <input
+                  type="radio"
+                  name="consent"
+                  value="true"
+                  checked={form.consent === true}
+                  onChange={handleChange}
+                  required
+                />
                 I Consent
               </label>
+
               <label>
-                <input type="radio" name="consent" value="false" checked={form.consent === false} onChange={handleChange} />
+                <input
+                  type="radio"
+                  name="consent"
+                  value="false"
+                  checked={form.consent === false}
+                  onChange={handleChange}
+                />
                 I Do Not Consent
               </label>
             </div>
 
-            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Submitting..." : "Submit"}
             </button>
+
           </form>
         </div>
       )}
